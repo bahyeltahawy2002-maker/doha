@@ -2,14 +2,15 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>عيد ميلاد سعيد يا ضحى ✨</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -30,25 +31,23 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 8, 25, 0.95);
+            background: rgba(10, 8, 25, 0.96);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            transition: opacity 1s ease;
+            z-index: 99999;
         }
 
         .welcome-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 105, 180, 0.4);
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 105, 180, 0.5);
             padding: 35px 25px;
             border-radius: 20px;
             text-align: center;
             max-width: 90%;
-            width: 420px;
+            width: 400px;
             box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
-            backdrop-filter: blur(10px);
         }
 
         .welcome-card h2 {
@@ -66,27 +65,25 @@
 
         .start-btn {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            color: #ffffff !important;
+            color: #ffffff;
             border: none;
-            padding: 14px 35px;
+            padding: 15px 40px;
             font-size: 18px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
-            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 65, 108, 0.5);
             display: inline-block;
-            direction: rtl;
+            touch-action: manipulation;
         }
 
-        .start-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+        .start-btn:active {
+            transform: scale(0.95);
         }
 
         /* الرموز المتناثرة في الخلفية */
         .symbol {
-            position: absolute;
+            position: fixed;
             top: -10vh;
             user-select: none;
             pointer-events: none;
@@ -95,14 +92,8 @@
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0.2;
-            }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
         }
 
         /* الحاوية الرئيسية */
@@ -116,15 +107,15 @@
 
         /* العد التنازلي */
         #countdown-box {
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            height: 80vh;
         }
 
         .countdown-number {
-            font-size: 120px;
+            font-size: 110px;
             font-weight: bold;
             color: #ff69b4;
             text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
@@ -132,60 +123,60 @@
         }
 
         @keyframes pulseNumber {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.15); opacity: 1; }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
         }
 
         .countdown-text {
-            font-size: 22px;
+            font-size: 20px;
             color: #ffb6c1;
             margin-top: 15px;
-            letter-spacing: 2px;
         }
 
         /* المحتوى الاحتفالي والمفاجآت */
         #celebration-box {
             display: none;
-            opacity: 0;
-            transition: opacity 1.5s ease;
         }
 
         .celebration-title {
-            font-size: 32px;
+            font-size: 28px;
             color: #ff69b4;
             margin-bottom: 10px;
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
         }
 
         .celebration-subtitle {
-            font-size: 18px;
+            font-size: 16px;
             color: #e0e0e0;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         /* شبكة المفاجآت والهدايا */
         .surprises-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: 1fr;
             gap: 15px;
             margin-bottom: 25px;
         }
 
+        @media (min-width: 500px) {
+            .surprises-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         .surprise-card {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 20px;
             border-radius: 15px;
             cursor: pointer;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
+            touch-action: manipulation;
         }
 
-        .surprise-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-5px);
+        .surprise-card:active {
+            transform: scale(0.98);
             border-color: #ff69b4;
-            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.3);
         }
 
         .surprise-card h3 {
@@ -195,15 +186,15 @@
         }
 
         .surprise-card p {
-            font-size: 13px;
+            font-size: 14px;
             color: #ccc;
         }
 
-        /* قالب القلب السحري الجديد (بدون صور) */
+        /* قالب القلب السحري */
         .magic-heart-section {
-            background: rgba(255, 105, 180, 0.1);
+            background: rgba(255, 105, 180, 0.12);
             border: 2px dashed #ff69b4;
-            padding: 25px;
+            padding: 25px 15px;
             border-radius: 20px;
             margin-top: 20px;
             text-align: center;
@@ -213,22 +204,17 @@
             background: linear-gradient(45deg, #ff758c, #ff7eb3);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 12px 28px;
             font-size: 16px;
             font-weight: bold;
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
-            transition: 0.3s;
             margin-top: 10px;
+            touch-action: manipulation;
         }
 
-        .magic-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
-        }
-
-        /* النوافذ المنبثقة للمفاجآت */
+        /* النوافذ المنبثقة */
         .modal {
             display: none;
             position: fixed;
@@ -236,82 +222,80 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.88);
             justify-content: center;
             align-items: center;
-            z-index: 10000;
+            z-index: 100000;
             padding: 20px;
         }
 
         .modal-content {
             background: #1a153b;
             border: 2px solid #ff69b4;
-            padding: 25px;
+            padding: 30px 20px;
             border-radius: 20px;
-            max-width: 500px;
+            max-width: 450px;
             width: 100%;
             text-align: center;
             position: relative;
             box-shadow: 0 0 40px rgba(255, 105, 180, 0.5);
-            max-height: 85vh;
-            overflow-y: auto;
         }
 
         .close-modal {
             position: absolute;
             top: 10px;
             left: 15px;
-            font-size: 24px;
+            font-size: 28px;
             color: #ff69b4;
             cursor: pointer;
             background: none;
             border: none;
+            padding: 5px;
         }
 
         .modal-content h3 {
             color: #ff69b4;
             margin-bottom: 15px;
+            font-size: 20px;
         }
 
         .modal-content p {
-            color: #ddd;
-            font-size: 15px;
-            line-height: 1.6;
+            color: #eee;
+            font-size: 16px;
+            line-height: 1.7;
         }
 
-        /* تصميم القلب المتوهج التفاعلي داخل النافذة */
         .pulsing-heart {
-            font-size: 80px;
-            color: #ff69b4;
-            animation: heartBeat 1.2s infinite alternate;
+            font-size: 75px;
+            animation: heartBeat 1s infinite alternate;
             margin: 15px 0;
         }
 
         @keyframes heartBeat {
-            0% { transform: scale(1); text-shadow: 0 0 10px rgba(255,105,180,0.5); }
-            100% { transform: scale(1.15); text-shadow: 0 0 30px rgba(255,105,180,0.9); }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
         }
     </style>
 </head>
 <body>
 
-    <!-- شاشة البداية لتشغيل الأغنية والموسيقى الرومانسية المدمجة -->
+    <!-- شاشة البداية -->
     <div id="welcome-overlay">
         <div class="welcome-card">
             <h2>✨ مفاجأة خاصة لضحى ✨</h2>
             <p>اضغطي هنا لبدء العد التنازلي وتشغيل الموسيقى الرومانسية ومفاجآت عيد ميلادك يا ضحى!</p>
-            <button class="start-btn" onclick="startExperience()">ابدأ المفاجأة 💖</button>
+            <button type="button" class="start-btn" id="startBtn">ابدأ المفاجأة 💖</button>
         </div>
     </div>
 
     <div class="container">
-        <!-- مرحلة العد التنازلي -->
+        <!-- العد التنازلي -->
         <div id="countdown-box">
             <div class="countdown-number" id="c-number">5</div>
             <div class="countdown-text">لحظات وتبدأ مفاجأة عيد ميلادك يا ضحى... 🌸</div>
         </div>
 
-        <!-- مرحلة المفاجآت والهدايا -->
+        <!-- المفاجآت -->
         <div id="celebration-box">
             <h1 class="celebration-title">🎉 عيد ميلاد سعيد يا ضحى 🎉</h1>
             <p class="celebration-subtitle">كل سنة وأنتِ أجمل وأغلى الناس في حياتي 💖</p>
@@ -327,7 +311,7 @@
                 </div>
                 <div class="surprise-card" onclick="openModal('jar-modal')">
                     <h3>🏺 برطمان السعادة</h3>
-                    <p>أسباب تخليمني أحبك كل يوم أكتر من اللي قبله.</p>
+                    <p>أسباب تخليني أحبك كل يوم أكتر من اللي قبله.</p>
                 </div>
                 <div class="surprise-card" onclick="openModal('star-modal')">
                     <h3>🌟 نجمة الأمنيات</h3>
@@ -335,32 +319,168 @@
                 </div>
             </div>
 
-            <!-- مفاجأة القلب السحري الإضافية (بدون صور) -->
             <div class="magic-heart-section">
                 <h3>💖 نبضات قلب الحب لضحى 💖</h3>
-                <p style="font-size: 13px; color: #ddd; margin-bottom: 10px;">اضغطي لفتح رسالة القلب السحرية المخبأة لأجلك</p>
-                <button class="magic-btn" onclick="openModal('magic-modal')">افتحي نبضات القلب ✨</button>
+                <p style="font-size: 14px; color: #ddd; margin-bottom: 10px;">اضغطي لفتح رسالة القلب السحرية المخبأة لأجلك</p>
+                <button type="button" class="magic-btn" onclick="openModal('magic-modal')">افتحي نبضات القلب ✨</button>
             </div>
         </div>
     </div>
 
-    <!-- النوافذ المنبثقة للمفاجآت -->
-    <!-- 1. التورتة -->
+    <!-- النوافذ المنبثقة -->
     <div id="cake-modal" class="modal">
         <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('cake-modal')">&times;</button>
+            <button type="button" class="close-modal" onclick="closeModal('cake-modal')">&times;</button>
             <h3>🎂 تورتة عيد ميلاد ضحى</h3>
-            <p style="font-size: 50px; margin: 15px 0;" id="cake-emoji">🎂 🕯️</p>
-            <p>تم إضاءة الشموع لأجلك! اضغطي لإطفائها وتمني أحلى أمنية.</p>
-            <button class="start-btn" style="margin-top: 15px; padding: 8px 20px; font-size: 14px;" onclick="blowCandles()">اطفئي الشموع 🌬️</button>
+            <p style="font-size: 55px; margin: 15px 0;" id="cake-emoji">🎂 🕯️</p>
+            <p id="cake-msg">تم إضاءة الشموع لأجلك! اضغطي لإطفائها وتمني أحلى أمنية.</p>
+            <button type="button" class="start-btn" style="margin-top: 20px; padding: 10px 25px; font-size: 16px;" onclick="blowCandles()">اطفئي الشموع 🌬️</button>
         </div>
     </div>
 
-    <!-- 2. الرسالة -->
     <div id="letter-modal" class="modal">
         <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('letter-modal')">&times;</button>
+            <button type="button" class="close-modal" onclick="closeModal('letter-modal')">&times;</button>
             <h3>💌 رسالة حب إلى ضحى</h3>
-            <p style="text-align: right; line-height: 1.8;">
+            <p style="text-align: right;">
                 إلى أغلى ما في الكون، ضحى الحبيبة..<br>
-                كل سنة وأنتِ منورة حياتي، وكل سنة وأنتِ أجمل صدفة دخلت عمري. وجودك بيخلي لكل حاجة طعم تاني ورونق خاص. ربنا يخليكي لينا وما يحرمنيش من ضحكتك أبداً يا أغلى الناس.
+                كل سنة وأنتِ منورة حياتي، وكل سنة وأنتِ أجمل صدفة دخلت عمري. وجودك بيخلي لكل حاجة طعم تاني ورونق خاص. ربنا يخليكي ليا وما يحرمنيش من ضحكتك أبداً يا أغلى الناس. 💖
+            </p>
+        </div>
+    </div>
+
+    <div id="jar-modal" class="modal">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('jar-modal')">&times;</button>
+            <h3>🏺 برطمان السعادة</h3>
+            <p id="reason-text" style="color: #ffb6c1; margin: 20px 0;">اضغطي الزر لتكتشفي سبباً جديداً لحبي لكِ!</p>
+            <button type="button" class="start-btn" style="padding: 10px 25px; font-size: 16px;" onclick="nextReason()">سبب جديد ✨</button>
+        </div>
+    </div>
+
+    <div id="star-modal" class="modal">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('star-modal')">&times;</button>
+            <h3>🌟 نجمة الأمنيات</h3>
+            <p>لقد اخترتُ لكِ أنور نجمة في السماء لتكون شاهدة على حبنا، وتعدكِ بسنة مليئة بالفرح والنجاح والسعادة الدائمة يا ضحى.</p>
+        </div>
+    </div>
+
+    <div id="magic-modal" class="modal">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('magic-modal')">&times;</button>
+            <h3>💖 سر نبضات القلب 💖</h3>
+            <div class="pulsing-heart">❤️</div>
+            <p style="color: #ffb6c1;">
+                كل نبضة في قلبي تنطق باسمك يا ضحى..<br>
+                أنتِ الضحكة اللي منورة أيامي، والسبب اللي بيخليني أكمل كل يوم وأنا سعيد وممنون لوجودك جنبي. يديمك ليا يا أجمل أقدار العمر! ✨🌸
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // القلوب المتساقطة
+        const symbolsList = ['❤️', '✨', '💖', '⭐', '🌸', '🎁'];
+        function createSymbol() {
+            const symbol = document.createElement('div');
+            symbol.className = 'symbol';
+            symbol.textContent = symbolsList[Math.floor(Math.random() * symbolsList.length)];
+            symbol.style.left = Math.random() * 100 + 'vw';
+            symbol.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            symbol.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.body.appendChild(symbol);
+            setTimeout(function() { symbol.remove(); }, 6000);
+        }
+        setInterval(createSymbol, 350);
+
+        // الموسيقى المتوافقة مع الآيفون والأندرويد
+        function playRomanceMusic() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                if (ctx.state === 'suspended') {
+                    ctx.resume();
+                }
+                const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50];
+                const melody = [0, 2, 4, 5, 4, 2, 0, 4, 6, 7, 6, 4, 2, 0];
+                let index = 0;
+
+                function playNote() {
+                    try {
+                        if (index >= melody.length) index = 0;
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(notes[melody[index]], ctx.currentTime);
+                        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.1);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start();
+                        osc.stop(ctx.currentTime + 1.1);
+                        index++;
+                    } catch (err) {}
+                    setTimeout(playNote, 950);
+                }
+                playNote();
+            } catch (e) {}
+        }
+
+        // ربط الزر باللمس والضغط معاً
+        var started = false;
+        function startExperience(e) {
+            if (e) e.preventDefault();
+            if (started) return;
+            started = true;
+
+            document.getElementById('welcome-overlay').style.display = 'none';
+            document.getElementById('countdown-box').style.display = 'flex';
+
+            playRomanceMusic();
+
+            var count = 5;
+            var cNumber = document.getElementById('c-number');
+            var timer = setInterval(function() {
+                count--;
+                if (count > 0) {
+                    cNumber.textContent = count;
+                } else {
+                    clearInterval(timer);
+                    document.getElementById('countdown-box').style.display = 'none';
+                    document.getElementById('celebration-box').style.display = 'block';
+                }
+            }, 1000);
+        }
+
+        var startBtn = document.getElementById('startBtn');
+        startBtn.addEventListener('click', startExperience);
+        startBtn.addEventListener('touchend', startExperience);
+
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function blowCandles() {
+            document.getElementById('cake-emoji').textContent = '🎂 💨';
+            document.getElementById('cake-msg').textContent = 'كل سنة وأنتِ طيبة يا أجمل ضحى في الدنيا! ✨🎂';
+        }
+
+        const reasons = [
+            "لأن ضحكتك بتغير يومي للأحلى دائماً يا ضحى 🌸",
+            "لأن قلبك أطيب وأصفى قلب عرفته في حياتي 💖",
+            "لأنك دايمًا بتدعميني وتقفي جنبي في كل خطوة ✨",
+            "لأن وجودك لوحده بيخلي الدنيا أمان وسعادة ❤️",
+            "لأنك ضحى العمر كله وأجمل أقداري 😍"
+        ];
+        var reasonIndex = 0;
+        function nextReason() {
+            document.getElementById('reason-text').textContent = reasons[reasonIndex];
+            reasonIndex = (reasonIndex + 1) % reasons.length;
+        }
+    </script>
+</body>
+</html>
