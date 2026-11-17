@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عيد ميلاد سعيد يا ضحى ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* شاشة البداية والتشغيل */
+        #welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 8, 25, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 105, 180, 0.4);
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            width: 420px;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .welcome-card h2 {
+            color: #ff69b4;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .welcome-card p {
+            color: #ddd;
+            font-size: 15px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: #ffffff !important;
+            border: none;
+            padding: 14px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+            transition: 0.3s;
+            display: inline-block;
+            direction: rtl;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+        }
+
+        /* الرموز المتناثرة في الخلفية */
+        .symbol {
+            position: absolute;
+            top: -10vh;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        /* العد التنازلي */
+        #countdown-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .countdown-number {
+            font-size: 120px;
+            font-weight: bold;
+            color: #ff69b4;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+            animation: pulseNumber 1s infinite alternate;
+        }
+
+        @keyframes pulseNumber {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.15); opacity: 1; }
+        }
+
+        .countdown-text {
+            font-size: 22px;
+            color: #ffb6c1;
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        /* المحتوى الاحتفالي والمفاجآت */
+        #celebration-box {
+            display: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .celebration-title {
+            font-size: 32px;
+            color: #ff69b4;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        }
+
+        .celebration-subtitle {
+            font-size: 18px;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        /* شبكة المفاجآت والهدايا */
+        .surprises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .surprise-card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .surprise-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
+            border-color: #ff69b4;
+            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .surprise-card h3 {
+            color: #ffb6c1;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .surprise-card p {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        /* قالب قلب صور ضحى السحري */
+        .heart-gallery-section {
+            background: rgba(255, 105, 180, 0.1);
+            border: 2px dashed #ff69b4;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .heart-gallery-section h3 {
+            color: #ff69b4;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .heart-btn {
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .heart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
+        }
+
+        /* نوافذ عرض المحتوى (Modals) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #1a153b;
+            border: 2px solid #ff69b4;
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 40px rgba(255, 105, 180, 0.5);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 24px;
+            color: #ff69b4;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .modal-content h3 {
+            color: #ff69b4;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            color: #ddd;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* شبكة الـ 9 صور لضحى */
+        .photo-heart-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            justify-items: center;
+        }
+
+        .photo-frame {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            border: 2px solid #ff69b4;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة البداية لتشغيل الأغنية والموسيقى الرومانسية المدمجة -->
+    <div id="welcome-overlay">
+        <div class="welcome-card">
+            <h2>✨ مفاجأة خاصة لضحى ✨</h2>
+            <p>اضغطي هنا لبدء العد التنازلي وتشغيل الموسيقى الرومانسية ومفاجآت عيد ميلادك يا ضحى!</p>
+            <button class="start-btn" onclick="startExperience()">ابدأ المفاجأة 💖</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- مرحلة العد التنازلي -->
+        <div id="countdown-box">
+            <div class="countdown-number" id="c-number">5</div>
+            <div class="countdown-text">لحظات وتبدأ مفاجأة عيد ميلادك يا ضحى... 🌸</div>
+        </div>
+
+        <!-- مرحلة المفاجآت والهدايا -->
+        <div id="celebration-box">
+            <h1 class="celebration-title">🎉 عيد ميلاد سعيد يا ضحى 🎉</h1>
+            <p class="celebration-subtitle">كل سنة وأنتِ أجمل وأغلى الناس في حياتي 💖</p>
+
+            <div class="surprises-grid">
+                <div class="surprise-card" onclick="openModal('cake-modal')">
+                    <h3>🎂 تورتة عيد الميلاد</h3>
+                    <p>اضغطي لإطفاء الشموع وتمني أمنية جميلة!</p>
+                </div>
+                <div class="surprise-card" onclick="openModal('letter-modal')">
+                    <h3>💌 رسالة حب خاصة</h3>
+                    <p>كلمات من القلب مصممة خصيصاً لكِ يا ضحى.</p>
+                </div>
+                <div class="surprise-card" onclick="openModal('jar-modal')">
+                    <h3>🏺 برطمان السعادة</h3>
+                    <p>أسباب تخليمني أحبك كل يوم أكتر من اللي قبله.</p>
+                </div>
+                <div class="surprise-card" onclick="openModal('star-modal')">
+                    <h3>🌟 نجمة الأمنيات</h3>
+                    <p>أمنية خاصة لكِ في سماء عيد ميلادك.</p>
+                </div>
+            </div>
+
+            <!-- قالب قلب صور ضحى السحري (9 صور) -->
+            <div class="heart-gallery-section">
+                <h3>💖 معرض صور ضحى المميزة (9 صور) 💖</h3>
+                <p style="font-size: 13px; color: #ddd; margin-bottom: 10px;">اضغطي لفتح ذكرياتك وأجمل صورك المتألقة</p>
+                <button class="heart-btn" onclick="openModal('gallery-modal')">افتحي معرض الصور ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- النوافذ المنبثقة للمفاجآت -->
+    <!-- 1. التورتة -->
+    <div id="cake-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('cake-modal')">&times;</button>
+            <h3>🎂 تورتة عيد ميلاد ضحى</h3>
+            <p style="font-size: 50px; margin: 15px 0;" id="cake-emoji">🎂 🕯️</p>
+            <p>تم إضاءة الشموع لأجلك! اضغطي لإطفائها وتمني أحلى أمنية.</p>
+            <button class="start-btn" style="margin-top: 15px; padding: 8px 20px; font-size: 14px;" onclick="blowCandles()">اطفئي الشموع 🌬️</button>
+        </div>
+    </div>
+
+    <!-- 2. الرسالة -->
+    <div id="letter-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('letter-modal')">&times;</button>
+            <h3>💌 رسالة حب إلى ضحى</h3>
+            <p style="text-align: right; line-height: 1.8;">
+                إلى أغلى ما في الكون، ضحى الحبيبة..<br>
+                كل سنة وأنتِ منورة حياتي، وكل سنة وأنتِ أجمل صدفة دخلت عمري. وجودك بيخلي لكل حاجة طعم تاني ورونق خاص. ربنا يخليكي لينا وما يحرمنيش من ضحكتك أبداً يا أغلى الناس. 💖
+            </p>
+        </div>
+    </div>
+
+    <!-- 3. برطمان السعادة -->
+    <div id="jar-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('jar-modal')">&times;</button>
+            <h3>🏺 برطمان السعادة</h3>
+            <p id="reason-text" style="font-size: 16px; color: #ffb6c1; margin: 20px 0;">اضغطي الزر لتكتشفي سبباً جديداً لحبي لكِ!</p>
+            <button class="start-btn" style="padding: 8px 20px; font-size: 14px;" onclick="nextReason()">سبب جديد ✨</button>
+        </div>
+    </div>
+
+    <!-- 4. نجمة الأمنيات -->
+    <div id="star-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('star-modal')">&times;</button>
+            <h3>🌟 نجمة الأمنيات</h3>
+            <p>لقد اخترتُ لكِ أنور نجمة في السماء لتكون شاهدة على حبنا، وتعدكِ بسنة مليئة بالفرح والنجاح والسعادة الدائمة يا ضحى.</p>
+        </div>
+    </div>
+
+    <!-- 5. معرض 9 صور لضحى -->
+    <div id="gallery-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('gallery-modal')">&times;</button>
+            <h3>💖 ذكريات ولحظات ضحى الجميلة 💖</h3>
+            <p style="font-size: 13px; color: #ccc; margin-bottom: 10px;">9 إطارات مخصصة لأجمل صورك</p>
+            
+            <div class="photo-heart-container" id="photoContainer">
+                <div class="photo-frame"><img src="photo1.jpg" alt="ضحى 1"></div>
+                <div class="photo-frame"><img src="photo2.jpg" alt="ضحى 2"></div>
+                <div class="photo-frame"><img src="photo3.jpg" alt="ضحى 3"></div>
+                <div class="photo-frame"><img src="photo4.jpg" alt="ضحى 4"></div>
+                <div class="photo-frame"><img src="photo5.jpg" alt="ضحى 5"></div>
+                <div class="photo-frame"><img src="photo6.jpg" alt="ضحى 6"></div>
+                <div class="photo-frame"><img src="photo7.jpg" alt="ضحى 7"></div>
+                <div class="photo-frame"><img src="photo8.jpg" alt="ضحى 8"></div>
+                <div class="photo-frame"><img src="photo9.jpg" alt="ضحى 9"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تأثير الرموز المتناثرة في الخلفية (قلوب ونجوم)
+        const symbolsList = ['❤️', '✨', '💖', '⭐', '🌸', '🎁'];
+        function createSymbol() {
+            const symbol = document.createElement('div');
+            symbol.classList.add('symbol');
+            symbol.innerHTML = symbolsList[Math.floor(Math.random() * symbolsList.length)];
+            symbol.style.left = Math.random() * 100 + 'vw';
+            symbol.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            symbol.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.body.appendChild(symbol);
+
+            setTimeout(() => {
+                symbol.remove();
+            }, 6000);
+        }
+        setInterval(createSymbol, 300);
+
+        // مولد الموسيقى الرومانسية (يعمل تلقائياً عند الضغط)
+        function playRomanceMusic() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const ctx = new AudioContext();
+                
+                const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50];
+                const melody = [0, 2, 4, 5, 4, 2, 0, 4, 6, 7, 6, 4, 2, 0];
+                let index = 0;
+
+                function playNote() {
+                    if (index >= melody.length) index = 0;
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(notes[melody[index]], ctx.currentTime);
+                    
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+                    
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    
+                    osc.start();
+                    osc.stop(ctx.currentTime + 1.2);
+                    
+                    index++;
+                    setTimeout(playNote, 1000);
+                }
+                playNote();
+            } catch (e) {
+                console.log("Audio not supported");
+            }
+        }
+
+        // بدء التجربة والعد التنازلي
+        function startExperience() {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 1000);
+
+            playRomanceMusic();
+
+            let count = 5;
+            const cNumber = document.getElementById('c-number');
+            const countdownBox = document.getElementById('countdown-box');
+            const celebrationBox = document.getElementById('celebration-box');
+
+            const timer = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    cNumber.innerText = count;
+                } else {
+                    clearInterval(timer);
+                    countdownBox.style.display = 'none';
+                    celebrationBox.style.display = 'block';
+                    setTimeout(() => {
+                        celebrationBox.style.opacity = '1';
+                    }, 50);
+                }
+            }, 1000);
+        }
+
+        // فتح وإغلاق النوافذ
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // إطفاء الشموع
+        function blowCandles() {
+            document.getElementById('cake-emoji').innerText = '🎂 💨';
+            setTimeout(() => {
+                alert('كل سنة وأنتِ طيبة يا أجمل ضحى في الدنيا! ✨🎂');
+            }, 300);
+        }
+
+        // برطمان السعادة
+        const reasons = [
+            "لأن ضحكتك بتغير يومي للأحلى دائماً يا ضحى 🌸",
+            "لأن قلبك أطيب وأصفى قلب عرفته في حياتي 💖",
+            "لأنك دايمًا بتدعميني وتقفي جنبي في كل خطوة ✨",
+            "لأن وجودك لوحده بيخلي الدنيا أمان والسعادة ❤️",
+            "لأنك ضحى العمر كله وأجمل أقداري 😍"
+        ];
+        let reasonIndex = 0;
+        function nextReason() {
+            const p = document.getElementById('reason-text');
+            p.innerText = reasons[reasonIndex];
+            reasonIndex = (reasonIndex + 1) % reasons.length;
+        }
+    </script>
+</body>
+</html>
