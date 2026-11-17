@@ -199,8 +199,8 @@
             color: #ccc;
         }
 
-        /* قالب قلب صور ضحى السحري */
-        .heart-gallery-section {
+        /* قالب القلب السحري الجديد (بدون صور) */
+        .magic-heart-section {
             background: rgba(255, 105, 180, 0.1);
             border: 2px dashed #ff69b4;
             padding: 25px;
@@ -209,13 +209,7 @@
             text-align: center;
         }
 
-        .heart-gallery-section h3 {
-            color: #ff69b4;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .heart-btn {
+        .magic-btn {
             background: linear-gradient(45deg, #ff758c, #ff7eb3);
             color: white;
             border: none;
@@ -229,12 +223,12 @@
             margin-top: 10px;
         }
 
-        .heart-btn:hover {
+        .magic-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
         }
 
-        /* نوافذ عرض المحتوى (Modals) */
+        /* النوافذ المنبثقة للمفاجآت */
         .modal {
             display: none;
             position: fixed;
@@ -285,32 +279,17 @@
             line-height: 1.6;
         }
 
-        /* شبكة الـ 9 صور لضحى */
-        .photo-heart-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-            justify-items: center;
+        /* تصميم القلب المتوهج التفاعلي داخل النافذة */
+        .pulsing-heart {
+            font-size: 80px;
+            color: #ff69b4;
+            animation: heartBeat 1.2s infinite alternate;
+            margin: 15px 0;
         }
 
-        .photo-frame {
-            width: 85px;
-            height: 85px;
-            border-radius: 50%;
-            border: 2px solid #ff69b4;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
-            background: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        @keyframes heartBeat {
+            0% { transform: scale(1); text-shadow: 0 0 10px rgba(255,105,180,0.5); }
+            100% { transform: scale(1.15); text-shadow: 0 0 30px rgba(255,105,180,0.9); }
         }
     </style>
 </head>
@@ -356,11 +335,11 @@
                 </div>
             </div>
 
-            <!-- قالب قلب صور ضحى السحري (9 صور) -->
-            <div class="heart-gallery-section">
-                <h3>💖 معرض صور ضحى المميزة (9 صور) 💖</h3>
-                <p style="font-size: 13px; color: #ddd; margin-bottom: 10px;">اضغطي لفتح ذكرياتك وأجمل صورك المتألقة</p>
-                <button class="heart-btn" onclick="openModal('gallery-modal')">افتحي معرض الصور ✨</button>
+            <!-- مفاجأة القلب السحري الإضافية (بدون صور) -->
+            <div class="magic-heart-section">
+                <h3>💖 نبضات قلب الحب لضحى 💖</h3>
+                <p style="font-size: 13px; color: #ddd; margin-bottom: 10px;">اضغطي لفتح رسالة القلب السحرية المخبأة لأجلك</p>
+                <button class="magic-btn" onclick="openModal('magic-modal')">افتحي نبضات القلب ✨</button>
             </div>
         </div>
     </div>
@@ -384,165 +363,4 @@
             <h3>💌 رسالة حب إلى ضحى</h3>
             <p style="text-align: right; line-height: 1.8;">
                 إلى أغلى ما في الكون، ضحى الحبيبة..<br>
-                كل سنة وأنتِ منورة حياتي، وكل سنة وأنتِ أجمل صدفة دخلت عمري. وجودك بيخلي لكل حاجة طعم تاني ورونق خاص. ربنا يخليكي لينا وما يحرمنيش من ضحكتك أبداً يا أغلى الناس. 💖
-            </p>
-        </div>
-    </div>
-
-    <!-- 3. برطمان السعادة -->
-    <div id="jar-modal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('jar-modal')">&times;</button>
-            <h3>🏺 برطمان السعادة</h3>
-            <p id="reason-text" style="font-size: 16px; color: #ffb6c1; margin: 20px 0;">اضغطي الزر لتكتشفي سبباً جديداً لحبي لكِ!</p>
-            <button class="start-btn" style="padding: 8px 20px; font-size: 14px;" onclick="nextReason()">سبب جديد ✨</button>
-        </div>
-    </div>
-
-    <!-- 4. نجمة الأمنيات -->
-    <div id="star-modal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('star-modal')">&times;</button>
-            <h3>🌟 نجمة الأمنيات</h3>
-            <p>لقد اخترتُ لكِ أنور نجمة في السماء لتكون شاهدة على حبنا، وتعدكِ بسنة مليئة بالفرح والنجاح والسعادة الدائمة يا ضحى.</p>
-        </div>
-    </div>
-
-    <!-- 5. معرض 9 صور لضحى -->
-    <div id="gallery-modal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('gallery-modal')">&times;</button>
-            <h3>💖 ذكريات ولحظات ضحى الجميلة 💖</h3>
-            <p style="font-size: 13px; color: #ccc; margin-bottom: 10px;">9 إطارات مخصصة لأجمل صورك</p>
-            
-            <div class="photo-heart-container" id="photoContainer">
-                <div class="photo-frame"><img src="photo1.jpg" alt="ضحى 1"></div>
-                <div class="photo-frame"><img src="photo2.jpg" alt="ضحى 2"></div>
-                <div class="photo-frame"><img src="photo3.jpg" alt="ضحى 3"></div>
-                <div class="photo-frame"><img src="photo4.jpg" alt="ضحى 4"></div>
-                <div class="photo-frame"><img src="photo5.jpg" alt="ضحى 5"></div>
-                <div class="photo-frame"><img src="photo6.jpg" alt="ضحى 6"></div>
-                <div class="photo-frame"><img src="photo7.jpg" alt="ضحى 7"></div>
-                <div class="photo-frame"><img src="photo8.jpg" alt="ضحى 8"></div>
-                <div class="photo-frame"><img src="photo9.jpg" alt="ضحى 9"></div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // تأثير الرموز المتناثرة في الخلفية (قلوب ونجوم)
-        const symbolsList = ['❤️', '✨', '💖', '⭐', '🌸', '🎁'];
-        function createSymbol() {
-            const symbol = document.createElement('div');
-            symbol.classList.add('symbol');
-            symbol.innerHTML = symbolsList[Math.floor(Math.random() * symbolsList.length)];
-            symbol.style.left = Math.random() * 100 + 'vw';
-            symbol.style.fontSize = (Math.random() * 15 + 15) + 'px';
-            symbol.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            document.body.appendChild(symbol);
-
-            setTimeout(() => {
-                symbol.remove();
-            }, 6000);
-        }
-        setInterval(createSymbol, 300);
-
-        // مولد الموسيقى الرومانسية (يعمل تلقائياً عند الضغط)
-        function playRomanceMusic() {
-            try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                const ctx = new AudioContext();
-                
-                const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50];
-                const melody = [0, 2, 4, 5, 4, 2, 0, 4, 6, 7, 6, 4, 2, 0];
-                let index = 0;
-
-                function playNote() {
-                    if (index >= melody.length) index = 0;
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(notes[melody[index]], ctx.currentTime);
-                    
-                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
-                    
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    
-                    osc.start();
-                    osc.stop(ctx.currentTime + 1.2);
-                    
-                    index++;
-                    setTimeout(playNote, 1000);
-                }
-                playNote();
-            } catch (e) {
-                console.log("Audio not supported");
-            }
-        }
-
-        // بدء التجربة والعد التنازلي
-        function startExperience() {
-            const overlay = document.getElementById('welcome-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 1000);
-
-            playRomanceMusic();
-
-            let count = 5;
-            const cNumber = document.getElementById('c-number');
-            const countdownBox = document.getElementById('countdown-box');
-            const celebrationBox = document.getElementById('celebration-box');
-
-            const timer = setInterval(() => {
-                count--;
-                if (count > 0) {
-                    cNumber.innerText = count;
-                } else {
-                    clearInterval(timer);
-                    countdownBox.style.display = 'none';
-                    celebrationBox.style.display = 'block';
-                    setTimeout(() => {
-                        celebrationBox.style.opacity = '1';
-                    }, 50);
-                }
-            }, 1000);
-        }
-
-        // فتح وإغلاق النوافذ
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // إطفاء الشموع
-        function blowCandles() {
-            document.getElementById('cake-emoji').innerText = '🎂 💨';
-            setTimeout(() => {
-                alert('كل سنة وأنتِ طيبة يا أجمل ضحى في الدنيا! ✨🎂');
-            }, 300);
-        }
-
-        // برطمان السعادة
-        const reasons = [
-            "لأن ضحكتك بتغير يومي للأحلى دائماً يا ضحى 🌸",
-            "لأن قلبك أطيب وأصفى قلب عرفته في حياتي 💖",
-            "لأنك دايمًا بتدعميني وتقفي جنبي في كل خطوة ✨",
-            "لأن وجودك لوحده بيخلي الدنيا أمان والسعادة ❤️",
-            "لأنك ضحى العمر كله وأجمل أقداري 😍"
-        ];
-        let reasonIndex = 0;
-        function nextReason() {
-            const p = document.getElementById('reason-text');
-            p.innerText = reasons[reasonIndex];
-            reasonIndex = (reasonIndex + 1) % reasons.length;
-        }
-    </script>
-</body>
-</html>
+                كل سنة وأنتِ منورة حياتي، وكل سنة وأنتِ أجمل صدفة دخلت عمري. وجودك بيخلي لكل حاجة طعم تاني ورونق خاص. ربنا يخليكي لينا وما يحرمنيش من ضحكتك أبداً يا أغلى الناس.
